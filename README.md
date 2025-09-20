@@ -100,9 +100,9 @@ Gestión de ambulancias, pedidos y usuarios desde el panel
 
 Notificaciones en tiempo real
 
-📸 Capturas (ejemplo)
+📸 Capturas 
 
-(agregá screenshots de tu frontend aquí)
+(screenshots del frontend)
 
 📦 Scripts útiles
 
