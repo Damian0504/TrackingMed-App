@@ -1,0 +1,26 @@
+# FastAPI (framework principal)
+fastapi==0.115.0
+
+# Servidor ASGI
+uvicorn[standard]==0.30.6
+
+# ORM y DB
+sqlalchemy==2.0.32
+mysql-connector-python==9.0.0
+
+# WebSockets
+python-socketio[asyncio_client]==5.11.4
+
+# Subida de archivos y formularios
+python-multipart==0.0.9
+
+# Seguridad (JWT)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Manejo de variables de entorno (.env)
+python-dotenv==1.0.1
+
+# Validación y esquemas
+pydantic==2.9.2
+pydantic-settings==2.6.0
