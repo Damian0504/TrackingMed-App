@@ -21,9 +21,9 @@ Entorno:
 • - Base de datos: MySQL + phpMyAdmin.
 • - Deploy: Docker + cloud services.
 3. Requisitos Funcionales
-• RF1: Registro y login con roles y permisos finos (admin, dispatcher, medic, driver).
+• RF1: Registro y login con roles y permisos finos (admin, despachador, medico, chofer).
 • RF2: CRUD de usuarios, ambulancias y pedidos.
-• RF3: Asignación de ambulancias a pedidos (solo dispatcher).
+• RF3: Asignación de ambulancias a pedidos (solo despachador).
 • RF4: Mapa en tiempo real con Google Maps u OSM (Leaflet).
 • RF5: Tracking en tiempo real de ambulancias usando WebSockets.
 • RF6: Backoffice web para el despachador con mapa interactivo y control de pedidos. •
