@@ -1,0 +1,11 @@
+### Crear pedido
+POST http://localhost:8000/pedidos/
+Content-Type: application/json
+
+{
+  "usuario_id": 1,
+  "descripcion": "Paciente inconsciente"
+}
+
+### Listar pedidos
+GET http://localhost:8000/pedidos/

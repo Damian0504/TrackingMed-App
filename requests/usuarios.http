@@ -1,0 +1,16 @@
+### Registro de usuario
+POST http://localhost:8000/usuarios/register
+Content-Type: application/json
+
+{
+  "nombre": "Juan Perez",
+  "email": "juan@example.com",
+  "password": "123456",
+  "rol": "usuario"
+}
+
+### Login
+POST http://localhost:8000/usuarios/login
+Content-Type: application/x-www-form-urlencoded
+
+username=juan@example.com&password=123456

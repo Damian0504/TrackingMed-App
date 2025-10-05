@@ -1,0 +1,12 @@
+### Crear empresa
+POST http://localhost:8000/empresas/
+Content-Type: application/json
+
+{
+  "nombre": "Emergencias SA",
+  "direccion": "Av. Salud 123",
+  "telefono": "123456789"
+}
+
+### Listar empresas
+GET http://localhost:8000/empresas/

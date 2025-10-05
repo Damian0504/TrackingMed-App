@@ -1,0 +1,2 @@
+### Conectar WebSocket (usar VSCode o cliente ws)
+GET ws://localhost:8000/ws/notifications

@@ -1,0 +1,12 @@
+### Crear ambulancia
+POST http://localhost:8000/ambulancias/
+Content-Type: application/json
+
+{
+  "empresa_id": 1,
+  "patente": "ABC123",
+  "estado": "disponible"
+}
+
+### Listar ambulancias
+GET http://localhost:8000/ambulancias/
