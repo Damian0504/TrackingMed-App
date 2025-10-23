@@ -1,7 +1,8 @@
 @echo off
-title TrackingMed-App - Entorno Local
+title 🚑 TrackingMed-App - Entorno Local
+chcp 65001 >nul
 echo ===========================================
-echo  Iniciando entorno local TrackingMed-App
+echo Iniciando entorno local TrackingMed-App
 echo ===========================================
 
 :: Crear carpeta de logs si no existe
@@ -26,7 +27,7 @@ if exist requirements.txt (
 )
 
 echo Iniciando servidor FastAPI...
-start cmd /k "title  Backend FastAPI & uvicorn && uvicorn app.main:app --reload > ../logs/backend.log 2>&1"
+start cmd /k "title Backend FastAPI && uvicorn app.main:app --reload > ../logs/backend.log 2>&1"
 
 cd ..
 
@@ -36,21 +37,19 @@ cd ..
 cd frontend
 
 :: Verificar Node.js y npm
-echo Verificando instalación de Node.js...
+echo Verificando instalacion de Node.js...
 where node >nul 2>nul
 if %errorlevel% neq 0 (
-    echo ❌ Node.js no está instalado o no está en el PATH.
-    echo 👉 Descargalo desde: https://nodejs.org/
-    echo Saliendo del script...
+    echo [ERROR] Node.js no esta instalado o no esta en el PATH.
+    echo Descargalo desde: https://nodejs.org/
     pause
     exit /b
 )
 
 where npm >nul 2>nul
 if %errorlevel% neq 0 (
-    echo ❌ npm no está instalado o no está en el PATH.
-    echo 👉 npm se instala junto con Node.js.
-    echo Saliendo del script...
+    echo [ERROR] npm no esta instalado o no esta en el PATH.
+    echo npm se instala junto con Node.js.
     pause
     exit /b
 )
@@ -61,19 +60,17 @@ if not exist node_modules (
 )
 
 echo Iniciando servidor React...
-start cmd /k "title 💻 Frontend React && npm start > ../logs/frontend.log 2>&1"
+start cmd /k "title Frontend React && npm start > ../logs/frontend.log 2>&1"
 
 cd ..
 
 :: ================================
 :: MENSAJE FINAL
 :: ================================
-echo ✅ Entorno local iniciado correctamente.
-echo 🌐 Backend -> http://127.0.0.1:8000/docs
-echo 💻 Frontend -> http://localhost:3000
-echo 🗒️  Logs guardados en la carpeta: logs/
-echo    - backend.log
-echo    - frontend.log
-echo    - backend_install.log
-echo    - frontend_install.log
+echo ===========================================
+echo Entorno local iniciado correctamente.
+echo Backend -> http://127.0.0.1:8000/docs
+echo Frontend -> http://localhost:3000
+echo Logs guardados en la carpeta: logs/
+echo ===========================================
 pause
