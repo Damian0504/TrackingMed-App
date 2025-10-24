@@ -1,76 +1,67 @@
 @echo off
-title 🚑 TrackingMed-App - Entorno Local
-chcp 65001 >nul
-echo ===========================================
-echo Iniciando entorno local TrackingMed-App
-echo ===========================================
+title Iniciando entorno local TrackingMed-App
+color 0A
+echo.
+echo ===============================================
+echo    Iniciando entorno local TrackingMed-App
+echo ===============================================
+echo.
 
-:: Crear carpeta de logs si no existe
-if not exist logs (
-    mkdir logs
-)
-
-:: ================================
-:: BACKEND (FastAPI)
-:: ================================
+:: ===== BACKEND =====
+echo [1/3] Configurando entorno del backend...
 cd backend
-if not exist .venv (
-    echo Creando entorno virtual de Python...
+
+if not exist ".venv" (
+    echo Creando entorno virtual...
     python -m venv .venv
 )
+
 echo Activando entorno virtual...
 call .venv\Scripts\activate
 
+echo Instalando dependencias del backend...
+pip install --upgrade pip >nul
 if exist requirements.txt (
-    echo Instalando dependencias del backend...
-    pip install -r requirements.txt > ../logs/backend_install.log 2>&1
+    pip install -r requirements.txt
+) else (
+    echo No se encontró requirements.txt
 )
 
 echo Iniciando servidor FastAPI...
-start cmd /k "title Backend FastAPI && uvicorn app.main:app --reload > ../logs/backend.log 2>&1"
+start cmd /k "cd backend && call .venv\Scripts\activate && uvicorn app.main:asgi_app --reload --port 8000"
 
 cd ..
 
-:: ================================
-:: FRONTEND (React)
-:: ================================
+:: ===== FRONTEND =====
+echo.
+echo [2/3] Configurando frontend React...
 cd frontend
 
-:: Verificar Node.js y npm
-echo Verificando instalacion de Node.js...
-where node >nul 2>nul
-if %errorlevel% neq 0 (
-    echo [ERROR] Node.js no esta instalado o no esta en el PATH.
-    echo Descargalo desde: https://nodejs.org/
-    pause
-    exit /b
+if not exist "node_modules" (
+    echo Instalando dependencias iniciales...
+    call npm install
 )
 
-where npm >nul 2>nul
-if %errorlevel% neq 0 (
-    echo [ERROR] npm no esta instalado o no esta en el PATH.
-    echo npm se instala junto con Node.js.
-    pause
-    exit /b
+echo Verificando librerías Google Maps y Socket.IO...
+set FRONTEND_DEPS=@react-google-maps/api socket.io-client
+for %%d in (%FRONTEND_DEPS%) do (
+    call npm ls %%d >nul 2>&1 || (
+        echo Instalando %%d...
+        call npm install %%d --save
+    )
 )
 
-if not exist node_modules (
-    echo Instalando dependencias del frontend (npm install)...
-    npm install > ../logs/frontend_install.log 2>&1
-)
-
-echo Iniciando servidor React...
-start cmd /k "title Frontend React && npm start > ../logs/frontend.log 2>&1"
+echo Iniciando servidor de desarrollo React...
+start cmd /k "npm start"
 
 cd ..
 
-:: ================================
-:: MENSAJE FINAL
-:: ================================
-echo ===========================================
-echo Entorno local iniciado correctamente.
-echo Backend -> http://127.0.0.1:8000/docs
-echo Frontend -> http://localhost:3000
-echo Logs guardados en la carpeta: logs/
-echo ===========================================
+:: ===== LOGS =====
+echo.
+echo [3/3] Entorno local iniciado correctamente.
+echo -----------------------------------------------
+echo Backend: http://127.0.0.1:8000/docs
+echo Frontend: http://localhost:3000
+echo -----------------------------------------------
+echo Para detener todo, cerrá las ventanas abiertas.
 pause

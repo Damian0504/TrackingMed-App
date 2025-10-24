@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="bg-teal-900 text-white flex justify-between items-center p-4">
       <div className="flex items-center gap-2">
-        <span className="text-xl font-bold">🚑 TrackingMed</span>
+        <span className="text-xl font-bold"> TrackingMed</span>
         <span className="text-sm">Sistema de Emergencias Médicas</span>
       </div>
       <div className="flex gap-2">
