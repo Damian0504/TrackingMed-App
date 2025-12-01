@@ -1,20 +1,35 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { FaAmbulance } from "react-icons/fa";
 
 export default function Navbar() {
   return (
-    <nav className="bg-teal-900 text-white flex justify-between items-center p-4">
-      <div className="flex items-center gap-2">
-        <span className="text-xl font-bold"> TrackingMed</span>
-        <span className="text-sm">Sistema de Gestion y Monitoreo de Ambulancias</span>
-      </div>
-      <div className="flex gap-2">
-        <Link to="/dashboard" className="bg-white text-teal-900 px-4 py-2 rounded">
-          Panel Administrativo
+    <header className="flex items-center justify-between px-10 py-6 shadow-md bg-white">
+
+      {/* LOGO - REDIRIGE AL HOME */}
+      <Link to="/home" className="flex items-center space-x-3 cursor-pointer">
+        <FaAmbulance className="text-blue-600 text-4xl" />
+        <h1 className="text-3xl font-bold text-blue-700 tracking-wide">
+          TrackingMed
+        </h1>
+      </Link>
+
+      {/* BOTONES LOGIN / REGISTRO */}
+      <div className="flex space-x-4">
+        <Link
+          to="/login"
+          className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+        >
+          Iniciar sesión
         </Link>
-        <Link to="/tracking" className="bg-teal-600 px-4 py-2 rounded">
-          Solicitar Ambulancia
+
+        <Link
+          to="/login"
+          className="bg-white border border-blue-600 text-blue-600 px-5 py-2 rounded-lg shadow hover:bg-blue-50 transition"
+        >
+          Registrarse
         </Link>
       </div>
-    </nav>
+    </header>
   );
 }

@@ -32,8 +32,7 @@ if exist requirements.txt (
 )
 
 echo  Iniciando servidor FastAPI...
-start cmd /k "cd /d D:\usuarios\alumno\escritorio\TrackingMed-App\backend && call .venv\Scripts\activate && uvicorn app.main:asgi_app --reload --port 8000"
-
+start cmd /k "cd /d %~dp0backend && call .venv\Scripts\activate && uvicorn app.main:sio_app --reload --port 8000"
 
 cd /d "%~dp0"
 
@@ -65,7 +64,7 @@ cd /d "%~dp0"
 echo.
 echo [3/3]  Entorno local iniciado correctamente.
 echo -----------------------------------------------
-echo  Backend: http://127.0.0.1:8000/docs
+echo  Backend:  http://127.0.0.1:8000/docs
 echo  Frontend: http://localhost:3000
 echo -----------------------------------------------
 echo.

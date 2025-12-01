@@ -1,14 +1,14 @@
-import React from 'react'
-import AppRoutes from './routes/AppRoutes'
-import Navbar from './components/Navbar'
+import React from "react";
+import AppRoutes from "./routes/AppRoutes";
+
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <main style={{ padding: '1rem' }}>
-        <AppRoutes />
-      </main>
+      <AppRoutes />
     </>
-  )
+  );
 }
+
+
+

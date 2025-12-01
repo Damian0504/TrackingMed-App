@@ -1,7 +1,9 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
+from datetime import date, time
 
-# Usuarios
+
+# Usuarios 
 class UsuarioBase(BaseModel):
     nombre: str
     email: EmailStr
@@ -13,10 +15,25 @@ class UsuarioCreate(UsuarioBase):
 class UsuarioOut(UsuarioBase):
     id: int
     rol: str
-    class Config:
-        orm_mode = True
 
-# Empresas
+    model_config = {
+        "from_attributes": True
+    }
+
+
+# Token response
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UsuarioOut
+
+    model_config = {
+        "from_attributes": True
+    }
+
+
+
+# Empresas 
 class EmpresaBase(BaseModel):
     nombre: str
     direccion: Optional[str] = None
@@ -30,7 +47,8 @@ class EmpresaOut(EmpresaBase):
     class Config:
         orm_mode = True
 
-# Ambulancias
+
+# Ambulancias 
 class AmbulanciaBase(BaseModel):
     empresa_id: int
     patente: str
@@ -41,7 +59,8 @@ class AmbulanciaOut(AmbulanciaBase):
     class Config:
         orm_mode = True
 
-# Pedidos
+
+# Pedidos 
 class PedidoBase(BaseModel):
     usuario_id: int
     descripcion: Optional[str] = None
@@ -52,7 +71,8 @@ class PedidoOut(PedidoBase):
     class Config:
         orm_mode = True
 
-# Notificaciones
+
+# Notificaciones 
 class NotificacionBase(BaseModel):
     usuario_id: int
     mensaje: str
@@ -63,3 +83,31 @@ class NotificacionOut(NotificacionBase):
     class Config:
         orm_mode = True
 
+
+# Traslados programados
+class TrasladoProgramadoCreate(BaseModel):
+    nombre: str
+    apellido: str
+    email: str
+    dni: str
+    nacimiento: date
+    telefono: str
+    cobertura: str
+    cobertura_nombre: Optional[str]
+    nro_afiliado: Optional[str]
+    tipo_ambulancia: str
+    direccion_salida: str
+    destino: str
+    fecha_traslado: date
+    hora_traslado: time
+
+# -----------------------------------------
+# RECUPERACIÓN / RESETEO DE CONTRASEÑA
+# -----------------------------------------
+
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+
+class PasswordResetUpdate(BaseModel):
+    password: str
