@@ -1,11 +1,11 @@
 import React from 'react'
 import AppRoutes from './routes/AppRoutes'
-import Header from './components/Header'
+import Navbar from './components/Navbar'
 
 export default function App() {
   return (
     <>
-      <Header />
+      <Navbar />
       <main style={{ padding: '1rem' }}>
         <AppRoutes />
       </main>

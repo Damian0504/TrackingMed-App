@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="bg-teal-900 text-white flex justify-between items-center p-4">
       <div className="flex items-center gap-2">
         <span className="text-xl font-bold"> TrackingMed</span>
-        <span className="text-sm">Sistema de Emergencias Médicas</span>
+        <span className="text-sm">Sistema de Gestion y Monitoreo de Ambulancias</span>
       </div>
       <div className="flex gap-2">
         <Link to="/dashboard" className="bg-white text-teal-900 px-4 py-2 rounded">

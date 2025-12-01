@@ -4,7 +4,7 @@ import os
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "mysql+mysqlconnector://root:admin123d@localhost:3306/TrackingMed_db"
+    "mysql+mysqlconnector://root@localhost:3306/trackingmed_db"
 )
 
 engine = create_engine(

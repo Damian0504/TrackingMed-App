@@ -1,21 +1,28 @@
 version: "3.9"
 
 services:
+  
+  #  BASE DE DATOS - MySQL
+  
   db:
     image: mysql:8.0
-    env_file: .env 
     container_name: mysql_db
     restart: always
+    env_file: .env  # Opcional: variables externas
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: tracking_med.db
+      MYSQL_DATABASE: tracking_med_db     # 🔧 sin punto (no se permiten puntos en nombre de BD)
       MYSQL_USER: admin
       MYSQL_PASSWORD: adminpassword
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
     ports:
       - "3307:3306"
 
+  
+  #  INTERFAZ DE GESTIÓN - phpMyAdmin
+  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
@@ -29,6 +36,9 @@ services:
     depends_on:
       - db
 
+  
+  #  BACKEND - FastAPI + Socket.IO
+
   backend:
     build: ./backend
     container_name: fastapi_backend
@@ -38,17 +48,27 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: mysql+mysqlconnector://admin:adminpassword@db:3306/ambulancias_db
+      #  conexión con el contenedor db (no localhost)
+      DATABASE_URL: mysql+mysqlconnector://admin:adminpassword@db:3306/tracking_med_db
       JWT_SECRET: "clave_super_segura"
       JWT_ALGORITHM: "HS256"
     depends_on:
       - db
 
+  
+  #  FRONTEND - React (Vite) + Nginx
+ 
   frontend:
     build: ./frontend
     container_name: react_frontend
     restart: always
     ports:
-      - "3000:3000"
+      - "3000:80"   # Nginx expone 80 → se mapea al 3000 local
     depends_on:
       - backend
+
+
+#  VOLUMES PERSISTENTES
+
+volumes:
+  mysql_data:

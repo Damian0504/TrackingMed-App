@@ -1,15 +1,26 @@
-# Etapa 1: build
-FROM node:18-alpine AS build
+#  TrackingMed - Frontend React (Vite + Nginx)
+
+# Etapa 1: Build
+FROM node:20-alpine AS build
 
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
+
+# Copiar dependencias e instalar
+COPY package*.json ./
+RUN npm install --production=false
+
+# Copiar el resto del código y compilar
 COPY . .
 RUN npm run build
 
-# Etapa 2: servidor nginx
+# Etapa 2: Servidor estático con Nginx
 FROM nginx:stable-alpine
-COPY --from=build /app/build /usr/share/nginx/html
 
-EXPOSE 3000
+# Copiar los archivos generados por Vite (dist/)
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Exponer el puerto interno de Nginx (80)
+EXPOSE 80
+
+# Iniciar el servidor Nginx
 CMD ["nginx", "-g", "daemon off;"]
